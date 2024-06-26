@@ -1,28 +1,5 @@
-# Turn on URL rewriting
-RewriteEngine On
-
-# Base directory of the rewrite rules
-# This is important if your application is not at the root of the domain
-RewriteBase /
-
-# Allow any files or directories that exist to be served directly
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Redirect all other requests to index.php
-RewriteRule ^ index.php [QSA,L]
-
-# Prevent directory listings
-Options -Indexes
-
-# Specify default file to serve when a directory is requested
 DirectoryIndex index.php
 
-# Protect sensitive files from being viewed
-<FilesMatch "\.(htaccess|htpasswd|ini|phps|fla|psd|log|sh)$">
-    Order Allow,Deny
-    Deny from all
-</FilesMatch>
-
-# Set the default character set
-AddDefaultCharset UTF-8
+RewriteEngine On
+RewriteRule ^$ public/index.php [L]
+RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
