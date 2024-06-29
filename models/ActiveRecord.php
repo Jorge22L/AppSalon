@@ -77,7 +77,7 @@ class ActiveRecord {
         $atributos = $this->atributos();
         $sanitizado = [];
         foreach($atributos as $key => $value ) {
-            $sanitizado[$key] = self::$db->escape_string($value);
+            $sanitizado[$key] = self::$db->quote($value);
         }
         return $sanitizado;
     }
@@ -133,15 +133,15 @@ class ActiveRecord {
         // Insertar en la base de datos
         $query = " INSERT INTO " . static::$tabla . " ( ";
         $query .= join(', ', array_keys($atributos));
-        $query .= " ) VALUES (' "; 
-        $query .= join("', '", array_values($atributos));
-        $query .= " ') ";
+        $query .= " ) VALUES ( "; 
+        $query .= join(", ", array_values($atributos));
+        $query .= " ) ";
 
         // Resultado de la consulta
         $resultado = self::$db->query($query);
         return [
            'resultado' =>  $resultado,
-           'id' => self::$db->insert_id
+           'id' => self::$db->lastInsertId()
         ];
     }
 

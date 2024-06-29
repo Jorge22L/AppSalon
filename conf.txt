@@ -1,0 +1,20 @@
+Configuraciones para xampp
+
+1 - En archivo host para Windows. Agregar al final una url similar a la escrita debajo
+
+127.0.0.1	appsalon.local.com  
+
+2 - En xampp\apache\conf\extra abrir el archivo httpd-vhosts.conf y Agregar al final
+
+<VirtualHost *>
+  DocumentRoot "C:\xampp\htdocs\nombreProyecto"
+  ServerName appsalon.local.com
+  <Directory "C:\xampp\htdocs\NombreProyecto">
+    Options All
+   AllowOverride All
+   Require all granted
+  </Directory>
+</VirtualHost>
+
+3 - Iniciar Xampp y acceder a la url agregada en el archivo host utilizando un navegador web
+
